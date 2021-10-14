@@ -166,8 +166,7 @@ function opponentPlays(squares){
 
 function playThis(squares, i, xIsNext){
   if (calculateWinner(squares) || squares[i]) {
-    throw 'there is a winner or the square is occupied';
-    return;
+    throw new Error('there is a winner or the square is occupied');
   }
   
   const newSquares = squares.slice();
