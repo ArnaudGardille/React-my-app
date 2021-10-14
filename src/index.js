@@ -192,14 +192,16 @@ function miniMax(squares, maximizingPlayer){
   if (maximizingPlayer) {
     let value = -2;
     for (let i=0; i<possibleMoves.length; i++){
-      let child = playThis(squares, i, maximizingPlayer)
+      let move = possibleMoves[i];
+      let child = playThis(squares, move, maximizingPlayer)
       value = Math.max(value, miniMax(child, false))
     }
   }
   else {
     let value = 2;
     for (let i=0; i<possibleMoves.length; i++){
-      let child = playThis(squares, i, maximizingPlayer)
+      let move = possibleMoves[i];
+      let child = playThis(squares, move, maximizingPlayer)
       value = Math.min(value, miniMax(child, true))
     }
   }
