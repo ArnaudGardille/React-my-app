@@ -36,7 +36,11 @@ class Board extends React.Component {
     } 
   
     if (!isFull(squares) && !calculateWinner(squares)){
-      squares[opponentPlays(squares)] = 'O'
+      squares[opponentPlays(squares)] = 'O';
+      this.setState({
+        squares: squares,
+        xIsNext: !this.state.xIsNext,
+      });
     }
   }
 
