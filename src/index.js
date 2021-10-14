@@ -137,13 +137,15 @@ function opponentPlays(squares){
 }
 
 function playThis(squares, i, xIsNext){
-  const squares = squares.slice();
-    if (calculateWinner(squares) || squares[i]) {
-      // ERROR
-      return;
-    }
-  squares[i] = xIsNext ? 'X' : 'O';
-  return squares;
+  if (calculateWinner(squares) || squares[i]) {
+    // ERROR
+    return;
+  }
+  
+  const newSquares = squares.slice();
+    
+  newSquares[i] = xIsNext ? 'X' : 'O';
+  return newSquares;
 }
 
 function miniMax(node, maximizingPlayer){
