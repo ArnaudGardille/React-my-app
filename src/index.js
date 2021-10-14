@@ -22,14 +22,22 @@ class Board extends React.Component {
 
   handleClick(i) {
     const squares = this.state.squares.slice();
+
     if (calculateWinner(squares) || squares[i]) {
       return;
     }
-    squares[i] = this.state.xIsNext ? 'X' : 'O';
-    this.setState({
-      squares: squares,
-      xIsNext: !this.state.xIsNext,
-    });
+
+    if (this.state.xIsNext){
+      squares[i] = this.state.xIsNext ? 'X' : 'O';
+      this.setState({
+        squares: squares,
+        xIsNext: !this.state.xIsNext,
+      });
+    } 
+  
+    if (!isFull(squares) && !calculateWinner(squares)){
+      squares[opponentPlays(squares)] = 'O'
+    }
   }
 
   renderSquare(i) {
@@ -47,8 +55,8 @@ class Board extends React.Component {
     if (winner) {
       status = 'Winner: ' + winner;
     } else if (isFull(this.state.squares)){
-      status = 'Draw!';
-    }{
+      status = 'Draw!'; 
+    } else {
       status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
     }
 
@@ -101,7 +109,7 @@ ReactDOM.render(
 function isFull(squares){
   let full = true;
   for (let i=0; i<9; i++){
-    if (squares[i] == null){
+    if (squares[i] === null){
       full = false;
     }
   }
@@ -162,9 +170,9 @@ function miniMax(squares, maximizingPlayer){
   }
 
   let w = calculateWinner(squares);
-  if (w=='X'){
+  if (w ==='X'){
     return 1;
-  } else if (w=='O'){
+  } else if (w ==='O'){
     return -1;
   }
 
@@ -174,14 +182,14 @@ function miniMax(squares, maximizingPlayer){
     let value = -2;
     for (let i=0; i<possibleMoves.length; i++){
       let child = playThis(squares, i, maximizingPlayer)
-      let value = Math.max(value, miniMax(child, false))
+      value = Math.max(value, miniMax(child, false))
     }
   }
   else {
     let value = 2;
     for (let i=0; i<possibleMoves.length; i++){
       let child = playThis(squares, i, maximizingPlayer)
-      let value = Math.min(value, miniMax(child, true))
+      value = Math.min(value, miniMax(child, true))
     }
   }
 
