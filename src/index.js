@@ -149,6 +149,7 @@ function opponentPlays(squares){
       minPossible = value;
     }
   }
+  console.assert(coup != -1)
   return coup;
 }
 
