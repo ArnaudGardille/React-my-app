@@ -45,6 +45,8 @@ class Board extends React.Component {
         xIsNext: !this.state.xIsNext,
       });
     }
+    console.assert(this.state.xIsNext);
+
   }
 
   renderSquare(i) {
