@@ -115,3 +115,8 @@ function calculateWinner(squares) {
   }
   return null;
 }
+
+
+function opponentPlays(squares){
+  
+}
