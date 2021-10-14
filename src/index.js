@@ -150,17 +150,18 @@ function calculateWinner(squares) {
 function opponentPlays(squares){
   let possibleMoves = getPossibleMoves(squares);
   let minPossible = 2;
-  let coup = -1;
+  let moveIA = -1;
   for (let i=0; i<possibleMoves.length; i++){
-    let child = playThis(squares, i, true)
+    move = possibleMoves[i];
+    let child = playThis(squares, move, true)
     let value = miniMax(child, true);
     if (value < minPossible){
-      coup = i;
+      moveIA = move;
       minPossible = value;
     }
   }
-  console.assert(coup !== -1)
-  return coup;
+  console.assert(moveIA !== -1)
+  return moveIA;
 }
 
 function playThis(squares, i, xIsNext){
