@@ -96,6 +96,16 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
+function isFull(squares){
+  let full = true;
+  for (let i=0; i<9; i++){
+    if (squares[i] == null){
+      full = false;
+    }
+  }
+  return full;
+}
+
 function calculateWinner(squares) {
   const lines = [
     [0, 1, 2],
@@ -118,5 +128,59 @@ function calculateWinner(squares) {
 
 
 function opponentPlays(squares){
-  
+  let possibleMoves = getPossibleMoves(squares);
+  let minPossible = 2;
+  let coup = -1;
+  for (let i=0; i<possibleMoves.length; i++){
+    let minPossible = miniMax(child, true);
+  }
+}
+
+function playThis(squares, i, xIsNext){
+  const squares = squares.slice();
+    if (calculateWinner(squares) || squares[i]) {
+      // ERROR
+      return;
+    }
+  squares[i] = xIsNext ? 'X' : 'O';
+  return squares;
+}
+
+function miniMax(node, maximizingPlayer){
+  if (isFull(squares)) {
+    return 0;
+  }
+
+  let w = calculateWinner(squares);
+  if (w=='X'){
+    return 1;
+  } else if (w=='O'){
+    return -1;
+  }
+
+  let possibleMoves = getPossibleMoves(squares);
+
+  if (maximizingPlayer) {
+    let value = -2;
+    for (let i=0; i<possibleMoves.length; i++){
+      child = playThis(squares, i, maximizingPlayer)
+      let value = Math.max(value, miniMax(child, false))
+    }
+  }
+  else {
+    let value = 2;
+    for (let i=0; i<possibleMoves.length; i++){
+      let value = Math.min(value, miniMax(child, true))
+    }
+  }
+
+}
+
+function getPossibleMoves(squares){
+  let possibleMoves = []
+  for (let i=0; i<9; i++){
+    if (squares[i] == null){
+      possibleMoves.push(i)
+    }
+  }
 }
