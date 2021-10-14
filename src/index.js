@@ -152,7 +152,7 @@ function opponentPlays(squares){
   let minPossible = 2;
   let moveIA = -1;
   for (let i=0; i<possibleMoves.length; i++){
-    move = possibleMoves[i];
+    let move = possibleMoves[i];
     let child = playThis(squares, move, true)
     let value = miniMax(child, true);
     if (value < minPossible){
