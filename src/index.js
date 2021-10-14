@@ -134,8 +134,14 @@ function opponentPlays(squares){
   let minPossible = 2;
   let coup = -1;
   for (let i=0; i<possibleMoves.length; i++){
-    let minPossible = miniMax(child, true);
+    let child = playThis(squares, i, maximizingPlayer)
+    let value = miniMax(child, true);
+    if (value < minPossible){
+      coup = i;
+      minPossible = value;
+    }
   }
+  return coup;
 }
 
 function playThis(squares, i, xIsNext){
@@ -167,13 +173,14 @@ function miniMax(node, maximizingPlayer){
   if (maximizingPlayer) {
     let value = -2;
     for (let i=0; i<possibleMoves.length; i++){
-      child = playThis(squares, i, maximizingPlayer)
+      let child = playThis(squares, i, maximizingPlayer)
       let value = Math.max(value, miniMax(child, false))
     }
   }
   else {
     let value = 2;
     for (let i=0; i<possibleMoves.length; i++){
+      let child = playThis(squares, i, maximizingPlayer)
       let value = Math.min(value, miniMax(child, true))
     }
   }
