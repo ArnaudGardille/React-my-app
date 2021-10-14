@@ -38,7 +38,7 @@ class Board extends React.Component {
     if (!isFull(squares) && !calculateWinner(squares)){
       aiPlays = opponentPlays(squares);
       console.assert(0 <= aiPlays);
-      console.assert(aiPlays < 0);
+      console.assert(aiPlays < 9);
       squares[aiPlays] = 'O';
       this.setState({
         squares: squares,
