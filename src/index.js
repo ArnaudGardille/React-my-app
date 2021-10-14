@@ -180,15 +180,14 @@ function playThis(squares, i, xIsPlaying){
 }
 
 function miniMax(squares, maximizingPlayer){
-  if (isFull(squares)) {
-    return 0;
-  }
 
   let w = calculateWinner(squares);
   if (w ==='X'){
     return 1;
   } else if (w ==='O'){
     return -1;
+  } else if (isFull(squares)) {
+    return 0;
   }
 
   let possibleMoves = getPossibleMoves(squares);
