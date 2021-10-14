@@ -137,6 +137,9 @@ function calculateWinner(squares) {
     [0, 4, 8],
     [2, 4, 6],
   ];
+  console.assert(squares[0] === 'X' || squares[0] === 'O' || squares[0] === null);
+
+
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
@@ -149,11 +152,12 @@ function calculateWinner(squares) {
 
 function opponentPlays(squares){
   let possibleMoves = getPossibleMoves(squares);
+  console.assert(possibleMoves.length < 10); 
   let minPossible = 2;
   let moveIA = -1;
   for (let i=0; i<possibleMoves.length; i++){
     let move = possibleMoves[i];
-    let child = playThis(squares, move, true)
+    let child = playThis(squares, move, false)
     let value = miniMax(child, true);
     if (value < minPossible){
       moveIA = move;
@@ -164,14 +168,14 @@ function opponentPlays(squares){
   return moveIA;
 }
 
-function playThis(squares, i, xIsNext){
+function playThis(squares, i, xIsPlaying){
   if (calculateWinner(squares) || squares[i]) {
     throw new Error('there is a winner or the square is occupied');
   }
   
   const newSquares = squares.slice();
     
-  newSquares[i] = xIsNext ? 'X' : 'O';
+  newSquares[i] = xIsPlaying ? 'X' : 'O';
   return newSquares;
 }
 
@@ -188,9 +192,10 @@ function miniMax(squares, maximizingPlayer){
   }
 
   let possibleMoves = getPossibleMoves(squares);
+  let value;
 
   if (maximizingPlayer) {
-    let value = -2;
+    value = -2;
     for (let i=0; i<possibleMoves.length; i++){
       let move = possibleMoves[i];
       let child = playThis(squares, move, maximizingPlayer)
@@ -198,7 +203,7 @@ function miniMax(squares, maximizingPlayer){
     }
   }
   else {
-    let value = 2;
+    value = 2;
     for (let i=0; i<possibleMoves.length; i++){
       let move = possibleMoves[i];
       let child = playThis(squares, move, maximizingPlayer)
@@ -206,6 +211,7 @@ function miniMax(squares, maximizingPlayer){
     }
   }
 
+  return value;
 }
 
 function getPossibleMoves(squares){
@@ -215,4 +221,5 @@ function getPossibleMoves(squares){
       possibleMoves.push(i)
     }
   }
+  return possibleMoves;
 }
