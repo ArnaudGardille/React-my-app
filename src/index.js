@@ -27,26 +27,27 @@ class Board extends React.Component {
       return;
     }
 
-    if (this.state.xIsNext){
+    //if (this.state.xIsNext){
       squares[i] = this.state.xIsNext ? 'X' : 'O';
+      /*
       this.setState({
         squares: squares,
         xIsNext: !this.state.xIsNext,
       });
-    } 
-  
-    if (!isFull(squares) && !calculateWinner(squares)){
+      */
+    //} 
+    //if (!isFull(squares) && !calculateWinner(squares)){
       let aiPlays = opponentPlays(squares);
       console.assert(0 <= aiPlays);
       console.assert(aiPlays < 9);
       squares[aiPlays] = 'O';
       this.setState({
         squares: squares,
-        xIsNext: !this.state.xIsNext,
+        //xIsNext: !this.state.xIsNext,
       });
-    }
-    console.assert(this.state.xIsNext);
-
+    //}
+    //console.assert(this.state.xIsNext);
+    //*/
   }
 
   renderSquare(i) {
