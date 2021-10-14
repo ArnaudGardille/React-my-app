@@ -165,7 +165,7 @@ function opponentPlays(squares){
 
 function playThis(squares, i, xIsNext){
   if (calculateWinner(squares) || squares[i]) {
-    // ERROR
+    throw 'there is a winner or the square is occupied';
     return;
   }
   
@@ -209,7 +209,7 @@ function miniMax(squares, maximizingPlayer){
 function getPossibleMoves(squares){
   let possibleMoves = []
   for (let i=0; i<9; i++){
-    if (squares[i] == null){
+    if (squares[i] === null){
       possibleMoves.push(i)
     }
   }
